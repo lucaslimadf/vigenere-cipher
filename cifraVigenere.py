@@ -29,16 +29,15 @@ class CifraDeVigenere (object):
     ponteiro = 0
 
     for i in range(tam_texto):
-      if(texto[i] == " "):
-        transcrito = "".join((transcrito," "))
-      else:
+      if((ord(texto[i]) >= 65) and (ord(texto[i]) <= 90)):
         transcrito = "".join((transcrito,palavra_chave[ponteiro]))
         
         if(ponteiro == tam_palavra_chave-1):
           ponteiro = 0
         else:
           ponteiro += 1
-
+      else:
+        transcrito = "".join((transcrito,texto[i]))
     return transcrito  
 
   def alfabeto(self):
@@ -68,12 +67,12 @@ class CifraDeVigenere (object):
     tabula = self.montar_tabela()
 
     for i in range(len(texto)):
-      if(texto[i] != " "):
+      if((ord(texto[i]) >= 65) and (ord(texto[i]) <= 90)):
         ind_texto = alfabeto.index(texto[i]) 
         ind_trans = alfabeto.index(transcrito[i])
         cifrado = cifrado + tabula[ind_texto][ind_trans]
       else:
-        cifrado = cifrado + " "
+        cifrado = cifrado + texto[i]
     
     return cifrado
     
@@ -87,12 +86,12 @@ class CifraDeVigenere (object):
     tabula = self.montar_tabela()
 
     for i in range(len(cifrado)):
-      if(cifrado[i] != " "):
+      if((ord(cifrado[i]) >= 65) and (ord(cifrado[i]) <= 90)):
         ind_p_chave = alfabeto.index(transcrito[i])
         ind_cifrado = tabula[ind_p_chave].index(cifrado[i])
         decifrado = decifrado + alfabeto[ind_cifrado]
       else:
-        decifrado = decifrado + " "
+        decifrado = decifrado + cifrado[i]
     
     return decifrado
 
