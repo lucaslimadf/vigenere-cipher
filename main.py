@@ -1,12 +1,13 @@
 import importlib
 from cifraVigenere import CifraDeVigenere
+from ataque import ataqueVigenere
 
 def main():
 
-  # texto = "IMAGINAÇÃO É MAIS IMPORTANTE QUE CONHECIMENTO"
-  # palavra_chave = "ORQUESTRA"
   resposta = 9
+  opt = 9
   vigenere = CifraDeVigenere()
+  ataque = ataqueVigenere()
 
   while resposta != 0:
     print("\n===================")
@@ -14,6 +15,7 @@ def main():
     print("1 - CIFRAR mensagem")
     print("2 - DECIFRAR mensagem")
     print("3 - ATACAR")
+    print("4 - USAR ARQUIVO PARA CIFRAR OU DECIFRAR")
     print("0 - SAIR\n")
 
     resposta = int(input())
@@ -35,11 +37,38 @@ def main():
       scape = input("\nPressione ENTER para retornar ao MENU...")
     
     elif resposta == 3:
-      print("Ainda não implementado '_'")
+      cifrado_atk = input("Informe o texto cifrado: ")
+      sequencia_espacamento = ataque.encontrar_espacamento(cifrado_atk)
+      qtd_fator = ataque.obter_fatores(sequencia_espacamento)
+      tam_chave = ataque.possiveis_tam_chave(qtd_fator)
       scape = input("\nPressione ENTER para retornar ao MENU...")
 
-  # print(texto)
-  # print(palavra_chave)
-  # print(decifrado)
+    elif resposta == 4:
+      while((opt != 1) and (opt != 2) and (opt != 0)):
+        print("\n===================")
+        print("O que deseja fazer?\n")
+        print("1 - CIFRAR mensagem (arquivo cifrar.txt)")
+        print("2 - DECIFRAR mensagem (arquivo decifrar.txt)")
+        print("0 - RETORNAR AO MENU ANTERIOR")
+        opt = int(input())
+
+        if opt == 1: 
+          arquivo = open('./entrada_dados/cifrar.txt', 'r') 
+          texto = arquivo.read()
+          palavra_chave = input("Informe a palavra-chave: ")
+          cifrado_arq = vigenere.cifrar_texto(texto, palavra_chave)
+          print("\nTexto Cifrado:")
+          print(cifrado_arq)
+
+        elif opt == 2:
+          arquivo = open('./entrada_dados/decifrar.txt', 'r') 
+          texto = arquivo.read()
+          palavra_chave = input("Informe a palavra-chave: ")
+          decifrado_arq = vigenere.cifrar_texto(texto, palavra_chave)
+          print("\nTexto Decifrado:")
+          print(decifrado_arq)
+          
+      opt = 9
+      scape = input("\nPressione ENTER para retornar ao MENU...")
 
 main()
