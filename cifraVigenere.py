@@ -3,9 +3,6 @@ import string
 
 class CifraDeVigenere (object):
 
-  # original = "IMAGINAÇÃO É MAIS IMPORTANTE QUE CONHECIMENTO"
-  # palavra_chave = "ORQUESTRA"
-
   #Remover acentos e passa para maiuscula
   def adequar_texto(self, original):
     texto = unicodedata.normalize("NFD", original)
